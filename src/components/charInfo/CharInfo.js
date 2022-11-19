@@ -8,6 +8,7 @@ import Skeleton from '../skeleton/Skeleton';
 
 import './charInfo.scss';
 
+//= CharInfo 
 const CharInfo = (props) => {
 
     const [char, setChar] = useState(null);
@@ -18,6 +19,7 @@ const CharInfo = (props) => {
         updateChar()
     }, [props.charId])
 
+    //* code 
     const updateChar = () => {
         const {charId} = props;
         if (!charId) {
@@ -38,6 +40,7 @@ const CharInfo = (props) => {
     const spinner = loading ? <Spinner/> : null;
     const content = !(loading || error || !char) ? <View char={char}/> : null;
 
+    //* return 
     return (
         <div className="char__info">
             {skeleton}
@@ -48,6 +51,7 @@ const CharInfo = (props) => {
     )
 }
 
+//= View 
 const View = ({char}) => {
     const {name, description, thumbnail, homepage, wiki, comics} = char;
 
@@ -99,3 +103,4 @@ CharInfo.propTypes = {
 }
 
 export default CharInfo;
+
