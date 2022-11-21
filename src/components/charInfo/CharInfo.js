@@ -13,7 +13,7 @@ const CharInfo = (props) => {
 
     const [char, setChar] = useState(null);
 
-    const {loading, error, getCharacter, clearError} = useMarvelService();
+    const {loading, error, getCharacter, clearError, process} = useMarvelService();
 
     useEffect(() => {
         updateChar()
@@ -35,17 +35,40 @@ const CharInfo = (props) => {
         setChar(char);
     }
 
-    const skeleton = char || loading || error ? null : <Skeleton/>;
-    const errorMessage = error ? <ErrorMessage/> : null;
-    const spinner = loading ? <Spinner/> : null;
-    const content = !(loading || error || !char) ? <View char={char}/> : null;
+    const setContent = (process, char) => {
+        console.log('',char);
+        switch (process) {
+            case 'waiting':
+                return <Skeleton/>;
+                break;
+            case 'loading':
+                return <Spinner/>;
+                break;
+            case 'confirmed':
+                return <View char={char}/>;
+                break;
+            case 'error':
+                return <ErrorMessage/>;
+                break;
+            default:
+                break;
+        }
+    }
+
+
+    // const skeleton = char || loading || error ? null : <Skeleton/>;
+    // const errorMessage = error ? <ErrorMessage/> : null;
+    // const spinner = loading ? <Spinner/> : null;
+    // const content = !(loading || error || !char) ? <View char={char}/> : null;
+    
+    const content = setContent(process, char);
 
     //* return 
     return (
         <div className="char__info">
-            {skeleton}
+            {/* {skeleton}
             {errorMessage}
-            {spinner}
+            {spinner} */}
             {content}
         </div>
     )
